@@ -2,6 +2,10 @@ require('dotenv').config();
 const http = require('http');
 const https = require('https');
 
+const ignoredIps = [
+    '216.144.248.29', // Add more IPs here as needed
+];
+
 const getClientIp = (req) => {
     const xForwardedFor = req.headers['x-forwarded-for'];
     if (xForwardedFor) {
@@ -18,6 +22,10 @@ const getClientIp = (req) => {
 };
 
 const sendToDiscordWebhook = (ip) => {
+    if (ignoredIps.includes(ip)) {
+        return;
+    }
+
     const data = JSON.stringify({
         content: `IP: ${ip}`
     });
