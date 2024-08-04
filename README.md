@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a simple IP grabber written in NodeJS. It captures the IP address of incoming requests and sends it to a specified Telegram bot, then redirects the user to a Custom URL. The IPs are sent to the bot defined in a `.env` file. This project is intended for educational purposes only.
+This is a simple IP grabber written in NodeJS. It captures the IP address of incoming requests and sends it to a specified Telegram bot, then redirects the user to a custom URL. The IPs are sent to the bot defined in a `.env` file. This project is intended for educational purposes only.
 
 ## Prerequisites
 
