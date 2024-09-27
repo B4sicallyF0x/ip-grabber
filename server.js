@@ -4,7 +4,9 @@ const https = require('https');
 const querystring = require('querystring');
 
 const ignoredIps = [
-    '216.144.248.29', // Add more IPs here as needed
+    '216.144.248.29'
+    '44.208.23.181'
+    '3.113.26.183', // Add more IPs here as needed
 ];
 
 const getClientIp = (req) => {
